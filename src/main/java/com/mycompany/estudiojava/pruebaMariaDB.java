@@ -13,6 +13,7 @@ public class pruebaMariaDB {
     public static void main(String[] args) {
         dbConection dbc = new dbConection();
         dbc.conectar();
+        System.out.println("Este el cambio hecho en la pc");
     }
     
 }
