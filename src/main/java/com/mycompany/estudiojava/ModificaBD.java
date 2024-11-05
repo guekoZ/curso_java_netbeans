@@ -1,12 +1,15 @@
 /*
- Este codigo muestra como se hacer una conexion la clase DriverManager y se explica en el video 203
-
+ Este codigo explica como conectar a una base de datos y hacer updates, insertar y borrar. Esta explicado en el video 204
  */
 package main.java.com.mycompany.estudiojava;
-import  java.sql.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
-public class conectaDB {
+public class ModificaBD {
     
     public static void main(String[] args) {
         
@@ -20,18 +23,17 @@ public class conectaDB {
             
             Statement  miStatement = miConexion.createStatement();
             
+            String instruccionSQL = "UPDATE productos SET precio = precio*2 WHERE id_articulo = 15 ";
+            
             // tercer paso ejecutar SQL
             
-            ResultSet miResultSet= miStatement.executeQuery("SELECT * FROM productos");
+          miStatement.executeUpdate(instruccionSQL);
+          
+            System.out.println("Datos actualizados correctamente)");
             
+         
             
-            // cuarto paso recorrer el ResultSet
-            
-            while(miResultSet.next()){
-                
-                System.out.println(miResultSet.getDouble("id_articulo")+ " "+ miResultSet.getNString("nombrearticulo")+ " " + miResultSet.getDouble("precio"));
-                
-            }
+          
           
             
         } catch (SQLException e) {
@@ -41,5 +43,6 @@ public class conectaDB {
         }
         
     }
+    
     
 }
