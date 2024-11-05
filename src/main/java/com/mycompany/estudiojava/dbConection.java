@@ -11,7 +11,7 @@ import java.sql.*;
  */
 public class dbConection {
     
-    static String url= "jdbc:mariadb://192.168.1.11:3306/punto_venta";
+    static String url= "jdbc:mariadb://192.168.1.11:3306/prueba";
     static String usuario = "root";
     static String pass= "normab";
     

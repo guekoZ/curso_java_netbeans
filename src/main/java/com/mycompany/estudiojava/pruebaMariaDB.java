@@ -14,6 +14,6 @@ public class pruebaMariaDB {
         dbConection dbc = new dbConection();
         dbc.conectar();
         System.out.println("Este el cambio hecho en la pc");
-    }
+    } 
     
 }
