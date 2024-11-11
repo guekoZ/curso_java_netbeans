@@ -16,7 +16,7 @@ public class ConsultaPreparada {
             
             //Preparar la consulta 
             
-            PreparedStatement miSentencia = miConexion.prepareStatement("SELECT nombrearticulo, seccion, piasdeorigen FROM productos WHERE seccion=? AND paisdeorigen = ?");
+            PreparedStatement miSentencia = miConexion.prepareStatement("SELECT nombrearticulo, seccion, paisdeorigen FROM productos WHERE seccion=? AND paisdeorigen=?");
             
             // Establecer los parametros de consulta 
             
