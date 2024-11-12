@@ -13,9 +13,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ServiceConfigurationError;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -87,8 +85,7 @@ class Marco_Aplicacion extends JFrame {
               ejecutaConsulta();
                 
             }
-        
-        
+           
         
         });
         
@@ -154,7 +151,13 @@ class Marco_Aplicacion extends JFrame {
         
         try {
             
+            resultado.setText("");
+            
             String seccion=(String)secciones.getSelectedItem();
+            
+            String pais=(String) paises.getSelectedItem();
+            
+            if(!seccion.endsWith("Todos") && pais.equals("Todos")){
             
             enviaConsultaSeccion=  miConexion.prepareStatement(consultaSeccion);
             
@@ -162,14 +165,24 @@ class Marco_Aplicacion extends JFrame {
             
             rs= enviaConsultaSeccion.executeQuery();
             
+            }else if(seccion.endsWith("Todos") && !pais.equals("Todos")){
+                
+                enviaConsultaPais=  miConexion.prepareStatement(consultaPais);
             
+                enviaConsultaPais.setString(1, pais);
             
-        } catch (Exception e) {
+                 rs= enviaConsultaPais.executeQuery();
+            }else if(!seccion.endsWith("Todos") && !pais.equals("Todos")){
+                
+                enviaConsultaTodos=  miConexion.prepareStatement(consultaTodos);
             
-        }
-        
-        try {
-            while (rs.next()) {
+                enviaConsultaTodos.setString(1, seccion);
+                enviaConsultaTodos.setString(2, pais);
+            
+                 rs= enviaConsultaTodos.executeQuery();
+            }
+            
+             while (rs.next()) {
               
                 resultado.append(rs.getString(1));
                 resultado.append(",  ");
@@ -181,25 +194,36 @@ class Marco_Aplicacion extends JFrame {
                 resultado.append(",  ");
                 
                  resultado.append(rs.getString(4));
-                resultado.append(",  ");
+                resultado.append("\n");
                 
                 
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Marco_Aplicacion.class.getName()).log(Level.SEVERE, null, ex);
+             rs.close();
+            
+        } catch (Exception e) {
+            
         }
+        
+        
         
     }
     
     private Connection miConexion;
-    private PreparedStatement enviaConsultaSeccion;
     
+    // Estas variables se van a almacenar los resultados de la consultas parametrisadas 
+    private PreparedStatement enviaConsultaSeccion;
+    private PreparedStatement enviaConsultaPais;
+    private PreparedStatement enviaConsultaTodos;
+    
+    //Estas variables contienen la consulta parametrizada
     private final String consultaSeccion = "SELECT nombrearticulo, seccion, precio FROM productos WHERE seccion=?";
-
+    private final String consultaPais = "SELECT nombrearticulo, seccion, precio FROM productos WHERE paisdeorigen=?";
+    private final String consultaTodos = "SELECT nombrearticulo, seccion, precio FROM productos WHERE seccion= ? AND paisdeorigen=?";
+    
+    
+    // Estos son los elementos que contiene el frame
     private JComboBox secciones;
-
     private JComboBox paises;
-
     private JTextArea resultado;
 
 }
