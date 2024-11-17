@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+Este codigo se explica en los videos 206 al 210 y habla sobre los usos que se pueden hacer y usar las conexiones a 
+las base de datos
  */
 package main.java.com.mycompany.estudiojava;
 
@@ -13,7 +13,6 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ServiceConfigurationError;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -25,7 +24,7 @@ public class Aplicacion_Consulta {
 
     public static void main(String[] args) {
 
-        // TODO Auto-generated method stub
+        
         JFrame mimarco = new Marco_Aplicacion();
 
         mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
