@@ -1,5 +1,5 @@
 /*
-Este codigo se explica en los videos 206 al 210 y habla sobre los usos que se pueden hacer y usar las conexiones a 
+Este codigo se explica en los videos 206 al 209 y habla sobre los usos que se pueden hacer y usar las conexiones a 
 las base de datos
  */
 package main.java.com.mycompany.estudiojava;

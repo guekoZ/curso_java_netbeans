@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorCargaSecciones;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
@@ -60,11 +61,15 @@ public class Marco_Aplicacion2 extends  JFrame {
         
         add(botonConsulta, BorderLayout.SOUTH);
         
+        
+         addWindowListener(new ControladorCargaSecciones(this));
+
+         
      }
      
      
       // Estos son los elementos que contiene el frame
-    private JComboBox secciones;
+    public JComboBox secciones;
     private JComboBox paises;
     private JTextArea resultado;
 
