@@ -5,13 +5,13 @@ package modelo;
 
 
 import  java.sql.*;
-import controlador.*;
 
 
 
-public class CargaSecciones {
+
+public class CargaMenus {
     
-    public CargaSecciones(){
+    public CargaMenus(){
         
         miConexion=new Conexion();
         
@@ -29,19 +29,28 @@ public class CargaSecciones {
          try {
             
              Statement secciones = accesoBBDD.createStatement();
-             rs = secciones.executeQuery("SELECT DISTINCT seccion FROM productos");
+              Statement paises = accesoBBDD.createStatement();
              
-             while (rs.next()) {
+             rs = secciones.executeQuery("SELECT DISTINCT seccion FROM productos");
+             rs2 = paises.executeQuery("SELECT DISTINCT paisdeorigen FROM productos");
+             
+            // while (rs.next()) {
+                 
                  
                  miProducto= new Productos();
                  miProducto.setSeccion(rs.getString(1));
                  
-                 return  miProducto.getSeccion();
-                         
+                 miProducto.setpOrigen(rs2.getString(1));
                  
-             }
+               //  return  miProducto.getSeccion();
+                       
+                 
+             //}
              
              rs.close();
+             rs2.close();
+             
+             accesoBBDD.close();
 
 
              
@@ -53,7 +62,8 @@ public class CargaSecciones {
         
     }
     
-    Conexion miConexion;
+    public Conexion miConexion;
     public ResultSet rs;
+    public ResultSet rs2;
     
 }

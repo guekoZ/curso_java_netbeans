@@ -1,12 +1,12 @@
 package controlador;
 
 import java.awt.event.*;
-import modelo.CargaSecciones;
+import modelo.CargaMenus;
 import vista.Marco_Aplicacion2;
 
-public class ControladorCargaSecciones extends WindowAdapter {
+public class ControladorCargaMenus extends WindowAdapter {
 
-    public ControladorCargaSecciones(Marco_Aplicacion2 elmarco) {
+    public ControladorCargaMenus(Marco_Aplicacion2 elmarco) {
 
         this.elmarco = elmarco;
 
@@ -19,12 +19,22 @@ public class ControladorCargaSecciones extends WindowAdapter {
         
         try {
           
-            while (obj.rs.next()) {                
+            while (obj.rs.next()) {  
+                
                 
                 elmarco.secciones.addItem(obj.rs.getString(1));
                 
                 
             }
+            
+            while (obj.rs2.next()) {  
+                
+                
+                elmarco.paises.addItem(obj.rs2.getString(1));
+                
+                
+            }
+            
             
             
         } catch (Exception e2) {
@@ -34,7 +44,7 @@ public class ControladorCargaSecciones extends WindowAdapter {
 
     }
 
-    CargaSecciones obj = new CargaSecciones();
+    CargaMenus obj = new CargaMenus();
     private Marco_Aplicacion2 elmarco;
 
 }
