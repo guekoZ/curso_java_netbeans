@@ -3,8 +3,6 @@
  */
 package modelo;
 
-/**
- */
 public class Productos {
      
     public Productos(){

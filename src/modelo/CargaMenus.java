@@ -1,4 +1,5 @@
-
+// Esta clase esta explicada en los videos 210 al 217 
+// Esta clase carga los JComboBoxes que contiene la ventana principal
 
 
 package modelo;
@@ -28,6 +29,7 @@ public class CargaMenus {
          
          try {
             
+             
              Statement secciones = accesoBBDD.createStatement();
               Statement paises = accesoBBDD.createStatement();
              

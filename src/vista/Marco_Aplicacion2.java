@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ Este codigo esta explicado en los videos 210 al 217 
  */
 package vista;
 
@@ -14,11 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-/**
- *
- * @author gueko
- */
+
 public class Marco_Aplicacion2 extends JFrame {
+    
+    // En el constructor se agregan los componentes y se acomandan en el panel principal
     
     public Marco_Aplicacion2() {
         
@@ -63,6 +61,7 @@ public class Marco_Aplicacion2 extends JFrame {
         add(botonConsulta, BorderLayout.SOUTH);
         
         
+        // Se pone a la escucha el boton, lo que permite que se haga la accion correspondiente en la clase ControladorBotonEjecuta
         botonConsulta.addActionListener(new ControladorBotonEjecuta(this));
         
         addWindowListener(new ControladorCargaMenus(this));
