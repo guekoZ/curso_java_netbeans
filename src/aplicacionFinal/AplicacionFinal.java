@@ -2,6 +2,9 @@
 package aplicacionFinal;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AplicacionFinal extends javax.swing.JFrame {
 
@@ -12,13 +15,16 @@ public class AplicacionFinal extends javax.swing.JFrame {
         initComponents();
 
         try {
+            
             ConexionBD miConexionBD = new ConexionBD();
+            
+            miConexion = miConexionBD.iniciarConexionBD();
 
-            miResulSet = miConexionBD.obtenerTablas();
+            miResulSet= miConexionBD.obtenerTablas(miConexion);
 
             while (miResulSet.next()) {
 
-                comboTabla.addItem(miResulSet.getNString("productos"));
+                comboTabla.addItem(miResulSet.getString("TABLE_NAME"));
 
             }
 
@@ -26,8 +32,10 @@ public class AplicacionFinal extends javax.swing.JFrame {
         }
 
     }
-
+    
+    
     ResultSet miResulSet;
+    Connection miConexion;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -88,7 +96,30 @@ public class AplicacionFinal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTablaActionPerformed
-        // TODO add your handling code here:
+        
+        String nombreTabla= ((String)comboTabla.getSelectedItem());
+        
+        informacionTabla infoTabla = new informacionTabla();
+        
+        ArrayList<String> campos =  infoTabla.mostrarInfoTablas(nombreTabla, miConexion);
+        ResultSet miResultSetTabla = infoTabla.enviarConsultaTabla();
+        
+        try {
+            while (miResultSetTabla.next()) {
+                for(String nombreCampos:campos){
+                    
+                    areaInformacion.append(miResultSetTabla.getString(nombreCampos) + " ");
+                    areaInformacion.append("\n");
+                    
+                }
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AplicacionFinal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }//GEN-LAST:event_comboTablaActionPerformed
 
     /**

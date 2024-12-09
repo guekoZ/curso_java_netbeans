@@ -40,13 +40,17 @@ public class Info_MetaDatos {
              
              
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             
-            e.printStackTrace();
         }finally{
-            
             try {
                 miConexion.close();
+                try {
+                    miConexion.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Info_MetaDatos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(Info_MetaDatos.class.getName()).log(Level.SEVERE, null, ex);
             }
