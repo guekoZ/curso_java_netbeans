@@ -1,4 +1,5 @@
 /*
+Esta clase muestra la informacion de la tablas que se van eligiendo del combobox
  */
 package aplicacionFinal;
 

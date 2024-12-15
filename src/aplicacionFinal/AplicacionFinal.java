@@ -1,4 +1,5 @@
-/*     */
+/*   Este codigo se explica en los videos 224-227 y trata de como hacer una conexion a la base de datos y mostrarla en una area te texto
+Este codigo es diferente porque lo hicen en NetBeans y genere automaticamente los componentes o un Frame en netbeans*/
 package aplicacionFinal;
 
 import java.sql.*;
@@ -87,6 +88,9 @@ public class AplicacionFinal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    // En esta parte se realiza la accion cuando se elige un componente del combobox
+    
     private void comboTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTablaActionPerformed
         
         String nombreTabla= ((String)comboTabla.getSelectedItem());

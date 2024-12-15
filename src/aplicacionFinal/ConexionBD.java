@@ -1,4 +1,7 @@
 /*
+Esta clase realiza la conexion y raliza la busqueda para despues enviarla a la clase principal
+Con el metodo iniciarConexionBD que envia la conexion
+La clase obtenerTabla en via los resultados con una clase ResultSet
 
  */
 package aplicacionFinal;
@@ -21,7 +24,7 @@ public class ConexionBD {
 
         try {
             
-     
+                
                 entrada = new FileReader("C://Users//gueko//OneDrive//Documentos//NetBeansProjects//cursoJavaNetbeans//src//aplicacionFinal//datos_conexion.txt");
                 BufferedReader miBuffer= new BufferedReader(entrada);
                 
@@ -39,7 +42,10 @@ public class ConexionBD {
 
         }catch(IOException e1){
             
-            //JOptionPane.showMessageDialog(parentComponent, this);
+            // En este parte lo comente porque no pude poner uno de los parametros para el shoWMessageDialog en el cual se pone el componente padre
+            
+            
+           // JOptionPane.showMessageDialog(jPanel1 ,"Ocurrio un error");
         } 
         
         catch (SQLException e2) {
