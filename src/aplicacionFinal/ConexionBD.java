@@ -3,7 +3,11 @@
  */
 package aplicacionFinal;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class ConexionBD {
 
@@ -13,14 +17,34 @@ public class ConexionBD {
 
     public Connection iniciarConexionBD() {
         enviaConexion = null;
+        String datos[] = new String[3];
 
         try {
+            
+     
+                entrada = new FileReader("C://Users//gueko//OneDrive//Documentos//NetBeansProjects//cursoJavaNetbeans//src//aplicacionFinal//datos_conexion.txt");
+                BufferedReader miBuffer= new BufferedReader(entrada);
+                
+                for(int i=0; i<=2 ; i++){
+                  
+                    datos[i]=miBuffer.readLine();
+                                        
+                }
+                
+           
+            
 
-            enviaConexion = DriverManager.getConnection("jdbc:mariadb://192.168.1.11:3306/prueba", "root", "normab");
+            enviaConexion = DriverManager.getConnection(datos[0], datos[1], datos[2]);
+            entrada.close();
 
-        } catch (SQLException e) {
+        }catch(IOException e1){
+            
+            //JOptionPane.showMessageDialog(parentComponent, this);
+        } 
+        
+        catch (SQLException e2) {
 
-            System.out.println("Ocurrio un error");
+            e2.printStackTrace();
 
         }
 
@@ -49,5 +73,7 @@ public class ConexionBD {
     }
 
     Connection enviaConexion;
+    
+    FileReader entrada;
 
 }
