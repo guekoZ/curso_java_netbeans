@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context path="/Web_de_productos">
+    
+    <Resource  name="jdbc/Productos" auth="Container"  type="javax.sql.DataSource" maxActive="15"    maxIdle="3" maxWait="5000"
+              username="root" password="normab" driverClassName="com.mariadb.jdbc.Driver"
+              url="jdbc:mariadb://192.168.1.11:3306/prueba" >
+        
+    </Resource>   
+        
+</Context>
+
