@@ -1,5 +1,7 @@
 /*
-Este codigo se explica en los vides 250 y es sobre como realizar un CRUD
+Este codigo se explica en los vides 250 y es sobre como realizar un CRUD, pero utilizando un pool de
+conexiones. En esta ocasion no funciono porque no logre conectar a la base datos y hacer el pool de conexiones
+Se puede investigar y ver como se raliza de otra manera un pool de conexiones.
  */
 package com.gueko.productos;
 
