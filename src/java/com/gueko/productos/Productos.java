@@ -10,7 +10,7 @@ Se creo la clase productos para manejar los datos que se obtienen de la tabla pr
  */
 public class Productos {
     
-    private String cArt;
+    private int cArt;
     private String seccion;
     private String nArt;
     private double precio;
@@ -18,7 +18,7 @@ public class Productos {
     private String importado;
     private String pOrig;
 
-    public Productos(String cArt, String seccion, String nArt, double precio, Date fecha, String importado, String pOrig) {
+    public Productos(int cArt, String seccion, String nArt, double precio, Date fecha, String importado, String pOrig) {
         this.cArt = cArt;
         this.seccion = seccion;
         this.nArt = nArt;
@@ -43,7 +43,7 @@ public class Productos {
     
     
 
-    public String getcArt() {
+    public int getcArt() {
         return cArt;
     }
 
@@ -73,7 +73,7 @@ public class Productos {
 
     
     
-    public void setcArt(String cArt) {
+    public void setcArt(int cArt) {
         this.cArt = cArt;
     }
 

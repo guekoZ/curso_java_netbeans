@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- En este archivo se confdigura el pool de conexiones, pero por alguna razon no funciono
+<!-- En este archivo se configura el pool de conexiones, pero por alguna razon no funciono
 Se puede ver este codigo en el viedo 250
 -->
 
 <Context path="/Web_de_productos">
     
-    <Resource  name="jdbc/Productos" auth="Container"  type="javax.sql.DataSource" maxActive="15"    maxIdle="3" maxWait="5000"
+  <Resource  name="jdbc/Productos" auth="Container"  type="javax.sql.DataSource" maxActive="15"    maxIdle="3" maxWait="5000"
                username="root" password="normab" driverClassName="com.mariadb.jdbc.Driver"
                url="jdbc:mariadb://192.168.1.11:3306/prueba" >
         
