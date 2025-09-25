@@ -54,7 +54,7 @@ public class ControlProductos extends HttpServlet {
             request.setAttribute("ListaProductos", productos);
 
             // Se envian al archivo jsp que recibira los datos
-            RequestDispatcher miDispatcher = request.getRequestDispatcher("/ListaProductos.jsp");
+            RequestDispatcher miDispatcher = request.getRequestDispatcher("/WEB-INF/ListaProductos.jsp");
 
             miDispatcher.forward(request, response);
 
