@@ -14,6 +14,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import org.eclipse.jdt.internal.compiler.lookup.TypeConstants;
 
 public class ModeloProductos {
 
@@ -59,6 +62,8 @@ public class ModeloProductos {
          Productos tempProductos = new Productos(id_producto, seccion, nombreArticulo, precio, fecha, importado, paisOrigen);
          productos.add(tempProductos);
          
+                  
+         
          
 
        }
@@ -66,5 +71,55 @@ public class ModeloProductos {
        // Retorna  el la lista con los datos de los productos que se consultaron en la consulta SQL
       return productos;
    }
+
+   
+   // Es el metodo que inserta los datos nuevos a la base datos
+   
+    void agregarNuevoProducto(Productos NuevoProducto) {
+      
+        //Preparamos la cexion
+        
+        Connection miConexion = null;
+        PreparedStatement miStatement = null;
+        
+        try {
+            
+            miConexion= conexion;
+           
+            //Creamos la consulta SQL y el Statement
+            
+            String sql = "INSERT INTO PRODUCTOS (codigoarticulo, seccion,nombrearticulo,precio,fecha,importado,paisorigen)" + "VALUES(?,?,?,?,?,?,?,?)";
+            miStatement= conexion.prepareStatement(sql);
+            
+            
+            // Establecemos los parametros del producto
+            
+            miStatement.setInt(1, NuevoProducto.getcArt());
+            miStatement.setString(2, NuevoProducto.getSeccion());
+            miStatement.setString(3, NuevoProducto.getnArt());
+            miStatement.setDouble(4, NuevoProducto.getPrecio());
+            
+            // Se tiene que convertir a una formato Date pero de la clase java.sql.date
+            java.util.Date utilDate= NuevoProducto.getFecha();
+            java.sql.Date fechaConvertida =  new java.sql.Date(utilDate.getTime());
+                       
+            miStatement.setDate(5, fechaConvertida);
+            
+            miStatement.setString(6, NuevoProducto.getImportado());
+            miStatement.setString(7, NuevoProducto.getpOrig());
+            
+            
+            // Ahora se ejecuta el SQL
+            
+            miStatement.execute();
+            
+        } catch (SQLException e) {
+            
+            
+        }
+        
+    
+    
+    }
     
 }

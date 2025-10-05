@@ -36,7 +36,13 @@ En el video 254 cambia un poco el codigo para darle formato a la tabla que prese
                  background: #5882fa; 
             }
             
+            tabla{
+                float: left;
+            }
             
+            #contenedorBoton{
+                margin-left: 1000px;
+            }
             
         </style>
     </head>
@@ -76,7 +82,13 @@ Este codigo se utiliza en el video 253 y se cambio jsp tags
             </tr>
            </c:forEach>
         </table>
-
+        <div id="contenedorBoton">
+            
+            <input type="button" value="Insertar Registro" onclick="window.location.href='insertar_producto.jsp'">
+                         
+        </div>
+        
+        
 
     </body>
 </html>
