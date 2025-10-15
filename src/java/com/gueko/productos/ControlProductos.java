@@ -54,29 +54,46 @@ public class ControlProductos extends HttpServlet {
 
             elComando = "listar";
         }
-        
+
         // Elegir la opcion que queremos que realice
-        
         switch (elComando) {
             case "listar":
                 obtenerProductos(request, response);
                 break;
-                
-                case "insertarBBDD":
-                    
-                    agregarProductos(response,request);
-                
-                break;
-            default:
-                
-                obtenerProductos(request, response);
-               
-        }
 
-        
+            case "insertarBBDD":
+
+                agregarProductos(response, request);
+
+                break;
+
+            case "cargar": {
+                try {
+                    cargaProductos(request, response);
+                } catch (Exception ex) {
+                    System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
+            }
+
+            break;
+
+            case "actualizarBBDD": {
+                try {
+                    actualizarProductos(request, response);
+                } catch (Exception ex) {
+                    System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
+            }
+
+            default:
+
+                obtenerProductos(request, response);
+
+        }
 
     }
 
+    // -------------------------------Este metodo se encarga de obtener los productos--------------------------------------------
     private void obtenerProductos(HttpServletRequest request, HttpServletResponse response) {
 
         List<Productos> productos;
@@ -100,43 +117,84 @@ public class ControlProductos extends HttpServlet {
 
     }
 
+    // ---------------------------Este metodo se encarga de agregar un producto nuevo a la base datos
     private void agregarProductos(HttpServletResponse response, HttpServletRequest request) {
-        
-    // Leer la informacion que viene del formulario 
-    
-    int CodArticulo = Integer.parseInt(request.getParameter("CArt"));
-    String seccion = request.getParameter("seccion");
-    String nombreArticulo = request.getParameter("NArt");
-    
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy,MM,dd");
-     
-    
-    Date fecha= null;
+
+        // Leer la informacion que viene del formulario 
+        int CodArticulo = Integer.parseInt(request.getParameter("CArt"));
+        String seccion = request.getParameter("seccion");
+        String nombreArticulo = request.getParameter("NArt");
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
+
+        Date fecha = null;
         try {
-            fecha=formatoFecha.parse(request.getParameter("fecha"));
+            fecha = formatoFecha.parse(request.getParameter("fecha"));
         } catch (ParseException ex) {
             System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-    
-    
-    Double precio = Double.parseDouble(request.getParameter("precio"));
-    String importado = request.getParameter("importado");
-    String paisOrigen = request.getParameter("POrigen");
-    
-    
-    // Crear un objeto de tipo producto
-    
-    Productos NuevoProducto = new Productos(CodArticulo,seccion, nombreArticulo,precio, fecha, importado, paisOrigen);
-    
-    
-    
-    // Enviar el objeto al modelo  y despues insertar el objeto Producto a la BBDD
-    
-    modeloProductos.agregarNuevoProducto(NuevoProducto);
-    
-      // Volver a listar los productos
-    
+
+        Double precio = Double.parseDouble(request.getParameter("precio"));
+        String importado = request.getParameter("importado");
+        String paisOrigen = request.getParameter("POrigen");
+
+        // Crear un objeto de tipo producto
+        Productos NuevoProducto = new Productos(CodArticulo, seccion, nombreArticulo, precio, fecha, importado, paisOrigen);
+
+        // Enviar el objeto al modelo  y despues insertar el objeto Producto a la BBDD
+        modeloProductos.agregarNuevoProducto(NuevoProducto);
+
+        // Volver a listar los productos
         obtenerProductos(request, response);
+    }
+
+    //----------------------------Este metodo es el que encarga de editar los registros
+    private void cargaProductos(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        // Leemos el codigo del articulo manadado del archivo ListaProductos.jsp 
+        String codigoArticulo = request.getParameter("CArticulo");
+
+        //Se envia el el codigo articulo al modelo
+        Productos elProducto = modeloProductos.getProductos(codigoArticulo);
+
+        // Colocar el atributo correspondiente al codigo articulo
+        request.setAttribute("ProductoActualizar", elProducto);
+
+        // Enviar el producto a actualizar al archivo actualizarProducto.jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/actualizarProducto.jsp");
+        dispatcher.forward(request, response);
+
+    }
+
+    private void actualizarProductos(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        // -----------------------------Leer el articulo que vien del listado-----------------------------------------------------
+        int CodArticulo = Integer.parseInt(request.getParameter("CArt"));
+        String seccion = request.getParameter("seccion");
+        String nombreArticulo = request.getParameter("NArt");
+
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
+
+        Date fecha = null;
+        try {
+            fecha = formatoFecha.parse(request.getParameter("fecha"));
+        } catch (ParseException ex) {
+            System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+
+        Double precio = Double.parseDouble(request.getParameter("precio"));
+        String importado = request.getParameter("importado");
+        String paisOrigen = request.getParameter("POrigen");
+
+        //----------------------------- Crear un objeto de tipo producto------------------------------------------------------------
+        Productos ProductoActualizado = new Productos(CodArticulo, seccion, nombreArticulo, precio, fecha, importado, paisOrigen);
+
+        //------------------Actualizar la BBDD con la info del producto----------------------------------------------------
+        modeloProductos.actualizarProducto(ProductoActualizado);
+
+        //------------------------Volver a listar los productos ya actualizados
+        obtenerProductos(request, response);
+
     }
 
 }

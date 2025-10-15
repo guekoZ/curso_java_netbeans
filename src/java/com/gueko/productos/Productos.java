@@ -28,12 +28,13 @@ public class Productos {
         this.pOrig = pOrig;
     }
 
-    public Productos(String seccion, String nArt, double precio, Date fecha, String importado) {
+    public Productos(String seccion, String nArt, double precio, Date fecha, String importado,String pOrig) {
         this.seccion = seccion;
-        this.nArt = nArt;
+        this.nArt = nArt;   
         this.precio = precio;
         this.fecha = fecha;
         this.importado = importado;
+        this.pOrig = pOrig;
     }
 
     @Override

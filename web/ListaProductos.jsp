@@ -67,18 +67,30 @@ Este codigo se utiliza en el video 253 y se cambio jsp tags
                 <td class="cabecera">Fecha</td>
                 <td class="cabecera">Importado</td>
                 <td class="cabecera">Pais de Origen</td>
+                <td class="cabecera">Acción</td>
 
             </tr>  
             <c:forEach var="tempProd" items="${ListaProductos}" >
+                
+                
+                <%-- Link para cada producto con su campo clave--%>
+                
+                <c:url var="linkTemp" value="ControlProductos">
+                    
+                    <c:param name="instruccion" value="cargar"> </c:param>
+                    <c:param name="CArticulo" value="${tempProd.cArt}"> </c:param>
+                    
+                </c:url>
             
             <tr>
                 <td class="filas">${tempProd.cArt}</td>
                 <td class="filas">${tempProd.seccion}</td>
                 <td class="filas">${tempProd.nArt}</td>
-                <td class="filas">${tempProd.precio}></td>
-                <td class="filas">${tempProd.fecha}></td>
+                <td class="filas">${tempProd.precio}</td>
+                <td class="filas">${tempProd.fecha}</td>
                 <td class="filas">${tempProd.importado}</td>
                 <td class="filas">${tempProd.pOrig}</td>
+                <td class="filas"><a href="${linkTemp}">Actualizar</a></td>
             </tr>
            </c:forEach>
         </table>
