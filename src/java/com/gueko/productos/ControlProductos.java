@@ -41,7 +41,7 @@ public class ControlProductos extends HttpServlet {
 
     }
 
-    // Metodo doGet que enviara los datos al archivo jsp
+    // Metodo doGet que recibira  los datos del archivo archivo jsp
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -67,24 +67,33 @@ public class ControlProductos extends HttpServlet {
 
                 break;
 
-            case "cargar": {
+            case "cargar": 
                 try {
                     cargaProductos(request, response);
                 } catch (Exception ex) {
                     System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                 }
-            }
-
+            
             break;
 
-            case "actualizarBBDD": {
+            case "actualizarBBDD": 
                 try {
                     actualizarProductos(request, response);
                 } catch (Exception ex) {
                     System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                 }
-            }
-
+            
+           
+                        
+            case "eliminar": 
+                try {
+                    eliminarProducto(request, response);
+                } catch (Exception ex) {
+                    System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
+            
+                     
+            
             default:
 
                 obtenerProductos(request, response);
@@ -134,15 +143,19 @@ public class ControlProductos extends HttpServlet {
             System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
 
-        Double precio = Double.parseDouble(request.getParameter("precio"));
+        double precio = Double.parseDouble(request.getParameter("precio"));
         String importado = request.getParameter("importado");
         String paisOrigen = request.getParameter("POrigen");
 
         // Crear un objeto de tipo producto
         Productos NuevoProducto = new Productos(CodArticulo, seccion, nombreArticulo, precio, fecha, importado, paisOrigen);
 
-        // Enviar el objeto al modelo  y despues insertar el objeto Producto a la BBDD
-        modeloProductos.agregarNuevoProducto(NuevoProducto);
+        try {
+            // Enviar el objeto al modelo  y despues insertar el objeto Producto a la BBDD
+            modeloProductos.agregarNuevoProducto(NuevoProducto);
+        } catch (Exception ex) {
+            System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
 
         // Volver a listar los productos
         obtenerProductos(request, response);
@@ -155,7 +168,7 @@ public class ControlProductos extends HttpServlet {
         String codigoArticulo = request.getParameter("CArticulo");
 
         //Se envia el el codigo articulo al modelo
-        Productos elProducto = modeloProductos.getProductos(codigoArticulo);
+        Productos elProducto = modeloProductos.getProducto(codigoArticulo);
 
         // Colocar el atributo correspondiente al codigo articulo
         request.setAttribute("ProductoActualizar", elProducto);
@@ -168,7 +181,7 @@ public class ControlProductos extends HttpServlet {
 
     private void actualizarProductos(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        // -----------------------------Leer el articulo que vien del listado-----------------------------------------------------
+        // -----------------------------Leer el articulo que viene del listado-----------------------------------------------------
         int CodArticulo = Integer.parseInt(request.getParameter("CArt"));
         String seccion = request.getParameter("seccion");
         String nombreArticulo = request.getParameter("NArt");
@@ -179,14 +192,15 @@ public class ControlProductos extends HttpServlet {
         try {
             fecha = formatoFecha.parse(request.getParameter("fecha"));
         } catch (ParseException ex) {
-            System.getLogger(ControlProductos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.out.println("Error al formar la fecha");
         }
 
-        Double precio = Double.parseDouble(request.getParameter("precio"));
+        double precio = Double.parseDouble(request.getParameter("precio"));
         String importado = request.getParameter("importado");
         String paisOrigen = request.getParameter("POrigen");
-
+        
         //----------------------------- Crear un objeto de tipo producto------------------------------------------------------------
+        
         Productos ProductoActualizado = new Productos(CodArticulo, seccion, nombreArticulo, precio, fecha, importado, paisOrigen);
 
         //------------------Actualizar la BBDD con la info del producto----------------------------------------------------
@@ -196,5 +210,18 @@ public class ControlProductos extends HttpServlet {
         obtenerProductos(request, response);
 
     }
+
+    private void eliminarProducto(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        
+        //------------------Capturar el articulo que se manda ListaProductos.jsp
+        int CodArticulo = Integer.parseInt(request.getParameter("CArticulo"));
+        
+        //-----------------------Borrar el producto de la base de datos---------------------------------
+        modeloProductos.eliminarProducto(CodArticulo);
+        
+        //Listar los productos de la tabla productos 
+        
+        obtenerProductos(request, response);
+           }
 
 }

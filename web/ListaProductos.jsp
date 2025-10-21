@@ -73,11 +73,21 @@ Este codigo se utiliza en el video 253 y se cambio jsp tags
             <c:forEach var="tempProd" items="${ListaProductos}" >
                 
                 
-                <%-- Link para cada producto con su campo clave--%>
+                <%-- Link para enviar la clave de cada producto al Servlet ControlProductos--%>
                 
                 <c:url var="linkTemp" value="ControlProductos">
                     
                     <c:param name="instruccion" value="cargar"> </c:param>
+                    <c:param name="CArticulo" value="${tempProd.cArt}"> </c:param>
+                    
+                </c:url>
+                
+                 <%-- Link para la clave del producto al Servlet ControlProductos--%>
+                 
+                
+                <c:url var="linkTempEliminar" value="ControlProductos">
+                    
+                    <c:param name="instruccion" value="eliminar"> </c:param>
                     <c:param name="CArticulo" value="${tempProd.cArt}"> </c:param>
                     
                 </c:url>
@@ -90,7 +100,7 @@ Este codigo se utiliza en el video 253 y se cambio jsp tags
                 <td class="filas">${tempProd.fecha}</td>
                 <td class="filas">${tempProd.importado}</td>
                 <td class="filas">${tempProd.pOrig}</td>
-                <td class="filas"><a href="${linkTemp}">Actualizar</a></td>
+                <td class="filas"><a href="${linkTemp}">Actualizar</a>&nbsp;&nbsp;&nbsp;<a href="${linkTempEliminar}">Eliminar</a></td>
             </tr>
            </c:forEach>
         </table>
